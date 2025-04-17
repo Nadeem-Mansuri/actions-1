@@ -3,13 +3,14 @@ name: Generate ASCSII
 on: push
 
 jobs:
-    build_job_1:
+    download_code_job_1:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
             
-    test_job_2:
+    configure_job_2:
+        needs: download_code_job_1
         runs-on: ubuntu-latest
         steps:
             - name: List repo files
@@ -18,7 +19,16 @@ jobs:
                    chmod +x ascii-script.sh
 
     deploy_job_3:
+        needs: [ download_code_job_1, configure_job_2]
+
         runs-on: ubuntu-latest
         steps:
             - name: Executing shell script & checking the content
               run: ./ascii-script.sh
+
+    test_job_4:
+        needs: [ download_code_job_1, configure_job_2, deploy_job_3]
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check file context
+              run: cat dragon.txt
