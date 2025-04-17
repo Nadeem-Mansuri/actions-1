@@ -9,8 +9,10 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v4
             
-            - name: Generate ASCII Artwork
+            - name: List repo files
               run: |
-                    sudo apt-get install -y cowsay
-                    cowsay -f dragon "Run for Cover, I am a DRAGON......RAWR" >> dragon.txt
-                    cat dragon.txt
+                    ls -ltra
+                    chmod +x ascii-script.sh
+
+            - name: Executing shell script
+              run: ./ascii-script.sh
