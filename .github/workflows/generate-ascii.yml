@@ -45,7 +45,7 @@ jobs:
               run: |
                     ls ./
                     pwd
-                    ./ascii-script.sh
+                    sh ./ascii-script.sh
 
     test_job_4:
         needs: [ download_code_job_1, configure_job_2, deploy_job_3]
