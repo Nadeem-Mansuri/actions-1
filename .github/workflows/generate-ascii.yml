@@ -28,6 +28,7 @@ jobs:
             - name: List repo files
               run: |
                    ls -ltra ./
+                   echo "Changing Permission of a script" 
                    chmod +x ./ascii-script.sh
 
     deploy_job_3:
