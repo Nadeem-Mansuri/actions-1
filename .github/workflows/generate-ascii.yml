@@ -1,4 +1,4 @@
-name: Generate ASCSII
+name: Generate ASCII
 
 on: push
 
@@ -6,14 +6,34 @@ jobs:
     download_code_job_1:
         runs-on: ubuntu-latest
         steps:
+            # Use actions/checkout@v3 (latest supported version, not v4)
             - name: Checkout repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v3  # Correct the version here
 
+            # Use actions/upload-artifact@v3.1.2 (explicitly pin the version)
             - name: Upload base Code
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v3.1.2
               with:
                 name: base-checkout-code
-                path: ./
+                path: ./  # Upload the repository content
+
+
+# name: Generate ASCSII
+
+# on: push
+
+# jobs:
+#     download_code_job_1:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Checkout repo
+#               uses: actions/checkout@v4
+
+#             - name: Upload base Code
+#               uses: actions/upload-artifact@v3
+#               with:
+#                 name: base-checkout-code
+#                 path: ./
             
     # configure_job_2:
     #     needs: download_code_job_1
