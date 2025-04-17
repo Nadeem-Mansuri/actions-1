@@ -13,7 +13,7 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                 name: base-checkout-code
-                path: /
+                path: ./
             
     configure_job_2:
         needs: download_code_job_1
@@ -27,7 +27,7 @@ jobs:
 
             - name: List repo files
               run: |
-                   ls -ltra /
+                   ls -ltra ./
                    chmod +x ascii-script.sh
 
     deploy_job_3:
@@ -41,7 +41,7 @@ jobs:
 
             - name: Executing shell script & checking the content
               run: |
-                    ls
+                    ls ./
                     pwd
                     ./ascii-script.sh
 
@@ -55,4 +55,6 @@ jobs:
                 name: base-checkout-code
 
             - name: Check file context
-              run: cat dragon.txt
+              run: |
+                    ls ./
+                    cat dragon.txt
