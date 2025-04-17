@@ -8,27 +8,53 @@ jobs:
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
+
+            - name: Upload base Code
+              uses: actions/upload-artifacts@v3
+              with:
+                name: base-checkout-code
+                path: /
             
     configure_job_2:
         needs: download_code_job_1
         runs-on: ubuntu-latest
         steps:
+            - name: Upload base Code
+              uses: actions/download-artifacts@v3
+              with:
+                name: base-checkout-code
+                path: /
+
             - name: List repo files
               run: |
-                   ls -ltra
+                   ls -ltra /
                    chmod +x ascii-script.sh
 
     deploy_job_3:
         needs: [ download_code_job_1, configure_job_2]
-
         runs-on: ubuntu-latest
         steps:
+            - name: Upload base Code
+              uses: actions/download-artifacts@v3
+              with:
+                name: base-checkout-code
+                path: /
+
             - name: Executing shell script & checking the content
-              run: ./ascii-script.sh
+              run: |
+                    ls
+                    pwd
+                    ./ascii-script.sh
 
     test_job_4:
         needs: [ download_code_job_1, configure_job_2, deploy_job_3]
         runs-on: ubuntu-latest
         steps:
+            - name: Upload base Code
+              uses: actions/download-artifacts@v3
+              with:
+                name: base-checkout-code
+                path: /
+
             - name: Check file context
               run: cat dragon.txt
