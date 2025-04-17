@@ -19,11 +19,11 @@ jobs:
         needs: download_code_job_1
         runs-on: ubuntu-latest
         steps:
-            - name: Upload base Code
+            - name: Download base Code
               uses: actions/download-artifacts@v3
               with:
                 name: base-checkout-code
-                path: /
+
 
             - name: List repo files
               run: |
@@ -34,11 +34,10 @@ jobs:
         needs: [ download_code_job_1, configure_job_2]
         runs-on: ubuntu-latest
         steps:
-            - name: Upload base Code
+            - name: Download base Code
               uses: actions/download-artifacts@v3
               with:
                 name: base-checkout-code
-                path: /
 
             - name: Executing shell script & checking the content
               run: |
@@ -50,11 +49,10 @@ jobs:
         needs: [ download_code_job_1, configure_job_2, deploy_job_3]
         runs-on: ubuntu-latest
         steps:
-            - name: Upload base Code
+            - name: Download base Code
               uses: actions/download-artifacts@v3
               with:
                 name: base-checkout-code
-                path: /
 
             - name: Check file context
               run: cat dragon.txt
