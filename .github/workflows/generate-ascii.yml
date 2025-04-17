@@ -9,11 +9,11 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v4
 
-            - name: Upload base Code
-              uses: actions/upload-artifact@v3
-              with:
-                name: base-checkout-code
-                path: ./code
+            # - name: Upload base Code
+            #   uses: actions/upload-artifact@v3
+            #   with:
+            #     name: base-checkout-code
+            #     path: ./code
             
     # configure_job_2:
     #     needs: download_code_job_1
