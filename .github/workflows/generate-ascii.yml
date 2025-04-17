@@ -1,4 +1,4 @@
-name: Generate ASCSII
+name: Generate ASCII
 
 on: push
 
@@ -7,13 +7,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repo
-              uses: actions/checkout@v4
+              uses: actions/checkout@v3
 
             - name: Upload base Code
               uses: actions/upload-artifact@v3
               with:
                 name: base-checkout-code
-                path: ./
+                path: ./  # Upload only the relevant repository files
             
     configure_job_2:
         needs: download_code_job_1
@@ -24,14 +24,13 @@ jobs:
               with:
                 name: base-checkout-code
 
-
             - name: List repo files
               run: |
-                   ls -ltra ./
-                   chmod +x ascii-script.sh
+                   ls -ltra ./  # Ensure you're in the correct directory
+                   chmod +x ascii-script.sh  # Check if the file exists in the repo
 
     deploy_job_3:
-        needs: [ download_code_job_1, configure_job_2]
+        needs: [download_code_job_1, configure_job_2]
         runs-on: ubuntu-latest
         steps:
             - name: Download base Code
@@ -41,12 +40,12 @@ jobs:
 
             - name: Executing shell script & checking the content
               run: |
-                    ls ./
+                    ls ./  # Ensure correct directory
                     pwd
-                    ./ascii-script.sh
+                    ./ascii-script.sh  # Make sure the file is present before execution
 
     test_job_4:
-        needs: [ download_code_job_1, configure_job_2, deploy_job_3]
+        needs: [download_code_job_1, configure_job_2, deploy_job_3]
         runs-on: ubuntu-latest
         steps:
             - name: Download base Code
@@ -56,5 +55,66 @@ jobs:
 
             - name: Check file context
               run: |
-                    ls ./
-                    cat dragon.txt
+                ls ./  # Check if dragon.txt exists
+                cat dragon.txt  # Ensure the file exists from earlier steps or artifacts
+
+# name: Generate ASCSII
+
+# on: push
+
+# jobs:
+#     download_code_job_1:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Checkout repo
+#               uses: actions/checkout@v4
+
+#             - name: Upload base Code
+#               uses: actions/upload-artifact@v3
+#               with:
+#                 name: base-checkout-code
+#                 path: ./
+            
+#     configure_job_2:
+#         needs: download_code_job_1
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Download base Code
+#               uses: actions/download-artifact@v3
+#               with:
+#                 name: base-checkout-code
+
+
+#             - name: List repo files
+#               run: |
+#                    ls -ltra ./
+#                    chmod +x ascii-script.sh
+
+#     deploy_job_3:
+#         needs: [ download_code_job_1, configure_job_2]
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Download base Code
+#               uses: actions/download-artifact@v3
+#               with:
+#                 name: base-checkout-code
+
+#             - name: Executing shell script & checking the content
+#               run: |
+#                     ls ./
+#                     pwd
+#                     ./ascii-script.sh
+
+#     test_job_4:
+#         needs: [ download_code_job_1, configure_job_2, deploy_job_3]
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Download base Code
+#               uses: actions/download-artifact@v3
+#               with:
+#                 name: base-checkout-code
+
+#             - name: Check file context
+#               run: |
+#                     ls ./
+#                     cat dragon.txt
