@@ -10,10 +10,10 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Upload base Code
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: base-checkout-code
-                path: dragon
+                path: ./
             
     configure_job_2:
         needs: download_code_job_1
