@@ -1,8 +1,8 @@
 name: Generate ASCSII
 
-on: workflow_dispatch
-  # schedule:
-  #   - cron: "*/1 * * * *"
+on: 
+  schedule:
+    - cron: "*/1 * * * *"
 
 jobs:
     download_code_job_1:
